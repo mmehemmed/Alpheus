@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/mmehemmed/Desktop/Alpheus/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/Alpheus.dir/src/main.cpp.o -c /home/mmehemmed/Desktop/Alpheus/src/main.cpp",
+  "file": "/home/mmehemmed/Desktop/Alpheus/src/main.cpp",
+  "output": "CMakeFiles/Alpheus.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/mmehemmed/Desktop/Alpheus/build",
+  "command": "/usr/bin/cc   -g -o CMakeFiles/Alpheus.dir/src/glad.c.o -c /home/mmehemmed/Desktop/Alpheus/src/glad.c",
+  "file": "/home/mmehemmed/Desktop/Alpheus/src/glad.c",
+  "output": "CMakeFiles/Alpheus.dir/src/glad.c.o"
+}
+]
