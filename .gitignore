@@ -1,0 +1,53 @@
+# =============================
+# Visual Studio
+# =============================
+.vs/
+*.vcxproj.user
+*.suo
+*.user
+*.ipch
+*.pdb
+*.obj
+*.idb
+*.ilk
+*.tlog/
+*.log
+*.lastbuildstate
+
+# =============================
+# CMake
+# =============================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.dir/
+*.o
+*.a
+*.so
+*.lib
+*.dll
+*.exe
+
+# =============================
+# OS generated files
+# =============================
+Thumbs.db
+.DS_Store
+*.swp
+
+# =============================
+# Build directories
+# =============================
+Debug/
+Release/
+x64/
+bin/
+build/
+out/
+
+# =============================
+# Res / shaders may be tracked if you want
+# If not, ignore compiled shaders etc.
+# =============================
+*.spv

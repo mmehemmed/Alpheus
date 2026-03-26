@@ -1,32 +1,37 @@
-#include "glad.h"
-#include <GLFW/glfw3.h>
+#include "window.h"
 #include <iostream>
+#include "loader.h"
+#include "renderer.h"
+#include "shader.h"
 
-// Minimal GLAD/GLFW setup to clear screen
+
 int main() {
-    glfwInit();
-    // Configure OpenGL 3.3 Core Profile
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	std::vector<float> vertices = {
+	-0.5f,  0.5f, 0.0f,
+	-0.5f, -0.5f, 0.0f,
+	 0.5f, -0.5f, 0.0f
+	};
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Window", NULL, NULL);
-    if (!window) {
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
 
-    // Initialize GLAD
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) return -1;
+	Window window(800, 450, "Alpheus Window");
+	window.create();
 
-    // Render loop
-    while (!glfwWindowShouldClose(window)) {
-        glClearColor(0.2f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-    glfwTerminate();
-    return 0;
+
+	Loader loader;
+	Renderer renderer;
+	Shader shader("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\shaders\\vertex.glsl", "C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\shaders\\fragment.glsl");
+
+	RawModel model = loader.loadToVAO(vertices);
+
+
+	while (!window.shouldClose()) {
+		renderer.prepare();
+		renderer.render(model,shader);
+
+		window.swapBuffers();
+		window.pollEvents();
+	}
+	loader.cleanUp();
+	shader.deleteShader();
+	window.destroy();
 }

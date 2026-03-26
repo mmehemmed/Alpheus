@@ -1,10 +1,33 @@
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.10)
 project(Alpheus VERSION 0.1.0 LANGUAGES C CXX)
+
 cmake_policy(SET CMP0072 NEW)
 
+# Executable
+add_executable(Alpheus 
+    src/main.cpp 
+    src/window.cpp
+    src/renderer.cpp
+    src/loader.cpp
+    src/glad.c
+ "src/shader.cpp" "include/shader.h")
 
+# Include directories (modern way)
+target_include_directories(Alpheus PRIVATE include)
+
+# OpenGL
 find_package(OpenGL REQUIRED)
 
-add_executable(Alpheus src/main.cpp src/glad.h src/glad.c)
+# Link
+target_link_libraries(Alpheus 
+    PRIVATE 
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib/glfw3.lib"
+    OpenGL::GL
+)
 
-target_link_libraries(Alpheus glfw OpenGL::GL)
+# Copy DLL
+add_custom_command(TARGET Alpheus POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib/glfw3.dll"
+    $<TARGET_FILE_DIR:Alpheus>
+)
