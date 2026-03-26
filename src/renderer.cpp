@@ -6,9 +6,9 @@ void Renderer::prepare() {
 }
 void Renderer::render(const RawModel& model,const Shader& shader) {
 	shader.use();
-	glBindVertexArray(model.vaoID);
+	glBindVertexArray(model.getVaoID());
 	glEnableVertexAttribArray(0);
-	glDrawArrays(GL_TRIANGLES, 0, model.vertexCount);
+	glDrawElements(GL_TRIANGLES, model.getVertexCount(), GL_UNSIGNED_INT, 0);
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 }

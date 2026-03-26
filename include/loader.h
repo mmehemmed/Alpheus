@@ -6,7 +6,7 @@
 
 class Loader{
 public:
-	RawModel loadToVAO(const std::vector<float>& positions);
+	RawModel loadToVAO(const std::vector<float>& positions, const std::vector<unsigned int>& indices);
 
 	void cleanUp();
 private:
@@ -16,4 +16,5 @@ private:
 	unsigned int createVAO();
 	void storeDataInAttributeList(int attributeNumber, int coordinateSize, const std::vector<float>& data);
 	void unbindVAO();
+	unsigned int storeElementBuffer(const std::vector<unsigned int>& indices);
 };

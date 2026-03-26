@@ -7,9 +7,15 @@
 
 int main() {
 	std::vector<float> vertices = {
-	-0.5f,  0.5f, 0.0f,
+	-0.5f, 0.5f, 0.0f,
 	-0.5f, -0.5f, 0.0f,
-	 0.5f, -0.5f, 0.0f
+	 0.5f, -0.5f, 0.0f,
+	 0.5f, 0.5f, 0.0f
+	};
+
+	std::vector<unsigned int> indices = {
+		0, 1, 2,
+		0, 2, 3
 	};
 
 
@@ -21,7 +27,7 @@ int main() {
 	Renderer renderer;
 	Shader shader("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\shaders\\vertex.glsl", "C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\shaders\\fragment.glsl");
 
-	RawModel model = loader.loadToVAO(vertices);
+	RawModel model = loader.loadToVAO(vertices,indices);
 
 
 	while (!window.shouldClose()) {

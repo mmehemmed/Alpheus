@@ -1,14 +1,17 @@
 #include "loader.h"
 
-RawModel Loader::loadToVAO(const std::vector<float>& positions)
+RawModel Loader::loadToVAO(const std::vector<float>& positions, const std::vector<unsigned int>& indices)
 {
 	unsigned int vaoID = createVAO();
 
 	storeDataInAttributeList(0, 3, positions);
 
+	unsigned int eboID = storeElementBuffer(indices);
+	vbos.push_back(eboID);
+
 	unbindVAO();
 
-	return RawModel(vaoID, positions.size()/3);
+	return RawModel(vaoID, indices.size());
 }
 unsigned int Loader::createVAO()
 {
@@ -41,4 +44,11 @@ void Loader::cleanUp()
 	for (unsigned int vbo : vbos) {
 		glDeleteBuffers(1, &vbo);
 	}
+}
+unsigned int Loader::storeElementBuffer(const std::vector<unsigned int>& indices) {
+	unsigned int eboID;
+	glGenBuffers(1, &eboID);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+	return eboID;
 }
