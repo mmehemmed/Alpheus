@@ -1,10 +1,12 @@
 #include "loader.h"
 
-RawModel Loader::loadToVAO(const std::vector<float>& positions, const std::vector<unsigned int>& indices)
+RawModel Loader::loadToVAO(const std::vector<float>& positions, const std::vector<unsigned int>& indices, const std::vector<float>& textureCoords)
 {
 	unsigned int vaoID = createVAO();
 
 	storeDataInAttributeList(0, 3, positions);
+	storeDataInAttributeList(1, 2, textureCoords);
+
 
 	unsigned int eboID = storeElementBuffer(indices);
 	vbos.push_back(eboID);

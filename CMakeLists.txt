@@ -10,7 +10,7 @@ add_executable(Alpheus
     src/renderer.cpp
     src/loader.cpp
     src/glad.c
- "src/shader.cpp" "include/shader.h")
+ "src/shader.cpp" "include/shader.h" "include/texture.h" "src/texture.cpp" "src/stb_image.cpp")
 
 # Include directories (modern way)
 target_include_directories(Alpheus PRIVATE include)

@@ -6,7 +6,7 @@
 
 class Loader{
 public:
-	RawModel loadToVAO(const std::vector<float>& positions, const std::vector<unsigned int>& indices);
+	RawModel loadToVAO(const std::vector<float>& positions, const std::vector<unsigned int>& indices, const std::vector<float>& textureCoords);
 
 	void cleanUp();
 private:
