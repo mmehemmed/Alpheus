@@ -510,7 +510,7 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_3_BYTES 0x1408
 #define GL_4_BYTES 0x1409
 #define GL_EMISSION 0x1600
-#define GL_SHININESS 0x1601
+#define GL_shininess 0x1601
 #define GL_AMBIENT_AND_DIFFUSE 0x1602
 #define GL_COLOR_INDEXES 0x1603
 #define GL_MODELVIEW 0x1700

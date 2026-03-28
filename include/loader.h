@@ -1,13 +1,14 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "glad.h"
 #include "rawmodel.h"
 
 class Loader{
 public:
-	RawModel loadToVAO(const std::vector<float>& positions, const std::vector<unsigned int>& indices, const std::vector<float>& textureCoords);
-
+	RawModel loadToVAO(const std::vector<float>& positions, const std::vector<unsigned int>& indices, const std::vector<float>& textureCoords, const std::vector<float>& normals);
+	RawModel loadOBJ(const std::string& path);
 	void cleanUp();
 private:
 	std::vector<unsigned int> vaos;

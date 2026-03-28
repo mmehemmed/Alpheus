@@ -15,14 +15,23 @@ public:
 
     void create();
 	void destroy();
+	void updateFPSCounter();
+
 
 	bool shouldClose();
 	void swapBuffers();
 	void pollEvents();
+	double getDeltaTime() const;
+	float getTime() const;
 
 private:
-
+	double lastTime = 0.0;
+	double currentTime = 0.0;
+	double deltaTime = 0.0;
+	double fpsTimer = 0.0;
+	int numberOfFrames = 0;
 
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
 };

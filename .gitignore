@@ -51,3 +51,4 @@ out/
 # If not, ignore compiled shaders etc.
 # =============================
 *.spv
+*.c
