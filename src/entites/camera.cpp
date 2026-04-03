@@ -3,42 +3,42 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glfw3.h>
 
-void Camera::move(float deltaTime, const std::vector<bool>& keys) {
+void Camera::move(float deltaTime, InputManager inputManager) {
 	// Move forward/backward
-	if (keys[GLFW_KEY_W]) { // W key
+	if (inputManager.getKeyState(W)) { // W key
 		position += forward * speed * deltaTime;
 	}
-	if (keys[GLFW_KEY_S]) { // S key
+	if (inputManager.getKeyState(S)) { // S key
 		position -= forward * speed * deltaTime;
 	}
 	// Move left/right
-	if (keys[GLFW_KEY_A]) { // A key
+	if (inputManager.getKeyState(A)) { // A key
 		position -= right * speed * deltaTime;
 	}
-	if (keys[GLFW_KEY_D]) { // D key
+	if (inputManager.getKeyState(D)) { // D key
 		position += right * speed * deltaTime;
 	}
-	if (keys[GLFW_KEY_Q]) { // Q key
+	if (inputManager.getKeyState(Q)) { // Q key
 		position += worldUp * speed * deltaTime; // Move up
 	}
-	if (keys[GLFW_KEY_E]) { // E key
+	if (inputManager.getKeyState(E)) { // E key
 		position -= worldUp * speed * deltaTime; // Move down
 	}
 }
 
-void Camera::rotate(float deltaTime, const std::vector<bool>& keys) {
+void Camera::rotate(float deltaTime, InputManager inputManager) {
 	// Rotate up/down
-	if (keys[GLFW_KEY_UP]) { // Up arrow key
+	if (inputManager.getKeyState(UP)) { // Up arrow key
 		pitch += speed * deltaTime * rotationSpeed; // Adjust rotation speed as needed
 	}
-	if (keys[GLFW_KEY_DOWN]) { // Down arrow key
+	if (inputManager.getKeyState(DOWN)) { // Down arrow key
 		pitch -= speed * deltaTime * rotationSpeed;
 	}
 	// Rotate left/right
-	if (keys[GLFW_KEY_LEFT]) { // Left arrow key
+	if (inputManager.getKeyState(LEFT)) { // Left arrow key
 		yaw -= speed * deltaTime * rotationSpeed;
 	}
-	if (keys[GLFW_KEY_RIGHT]) { // Right arrow key
+	if (inputManager.getKeyState(RIGHT)) { // Right arrow key
 		yaw += speed * deltaTime * rotationSpeed;
 	}
 	// Constrain the pitch so the screen doesn't flip upside down

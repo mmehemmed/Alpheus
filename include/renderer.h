@@ -1,5 +1,6 @@
 #pragma once
 
+#include "tools.h"
 #include "entity.h"
 #include "light.h"
 #include "shader.h"
@@ -9,6 +10,8 @@
 
 class Renderer {
 public:
+	Renderer();
+	~Renderer();
 	void prepare();
 	void render(const Camera& camera,const Light& light, const Entity& entity,const Shader& shader, bool debugRenderMode);
 };

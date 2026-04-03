@@ -1,13 +1,12 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include <vector>
-
+#include "input.h"
 
 class Camera {
 public:
-	void move(float deltaTime, const std::vector<bool>& keys);
-	void rotate(float deltaTime, const std::vector<bool>& keys);
+	void move(float deltaTime, InputManager inputManager);
+	void rotate(float deltaTime, InputManager inputManager);
 	glm::mat4 getViewMatrix() const; // View matrix for the camera
 	glm::mat4 getProjectionMatrix() const; // Projection matrix for the camera
 	glm::vec3 getPosition() const { return position; } // Get the current position of the camera

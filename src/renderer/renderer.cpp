@@ -1,6 +1,13 @@
 #include "renderer.h"
 
-
+Renderer::Renderer() {
+	glEnable(GL_DEPTH_TEST);		// Enable depth testing for correct 3D rendering
+	glEnable(GL_CULL_FACE);          // Disable face culling to render both sides of polygons (useful for debugging)
+	glCullFace(GL_BACK);
+}
+Renderer::~Renderer() {
+	// No dynamic resources to clean up in this implementation
+}
 void Renderer::prepare() {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -19,7 +26,7 @@ void Renderer::render(const Camera& camera,const Light& light,const Entity& enti
 
 	shader.setUniformMat4f("view", camera.getViewMatrix());
 	shader.setUniformMat4f("projection", camera.getProjectionMatrix());
-	shader.setUniformMat4f("model", glm::mat4(1.0f));
+	shader.setUniformMat4f("model", createTransformationMatrix(entity.position,entity.rotation,entity.scale));
 	glBindVertexArray(entity.getModel().getRawModel().getVaoID());
 	if(debugRenderMode) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

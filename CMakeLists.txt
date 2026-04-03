@@ -10,7 +10,7 @@ add_executable(Alpheus
     "src/renderer/renderer.cpp"
     "src/renderer/loader.cpp"
     src/glad.c
- "src/renderer/shader.cpp" "include/shader.h" "include/texture.h" "src/texture.cpp" "src/tools/stb_image.cpp" "src/entites/camera.cpp" "src/entites/entity.cpp" "include/camera.h" "include/entity.h"     "include/light.h")
+ "src/renderer/shader.cpp" "include/shader.h" "include/texture.h" "src/texture.cpp" "src/tools/stb_image.cpp" "src/entites/camera.cpp"  "include/camera.h" "include/entity.h"     "include/light.h" "include/input.h" "src/tools/input.cpp"  "include/tools.h" "src/tools/tools.cpp")
 
 # Include directories (modern way)
 target_include_directories(Alpheus PRIVATE include)
