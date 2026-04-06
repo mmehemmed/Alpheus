@@ -24,6 +24,12 @@ void Camera::move(float deltaTime, InputManager& inputManager) {
 	if (inputManager.getKeyState(E)) { // E key
 		position -= worldUp * speed * deltaTime; // Move down
 	}
+	if (inputManager.getKeyState(LSHIFT)) { // Left Shift key for faster movement
+		speed =  15.0f; // Move forward faster
+	}
+	else {
+		speed = 3.0f; // Reset to normal speed when Left Shift is not pressed
+	}
 }
 
 void Camera::rotate(float deltaTime, InputManager& inputManager) {

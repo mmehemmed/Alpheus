@@ -89,6 +89,7 @@ RawModel Loader::loadToVAO(const std::vector<float>& positions, const std::vecto
 	vbos.push_back(eboID);
 
 	unbindVAO();
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // Unbind EBO after unbinding VAO
 
 	return RawModel(vaoID, indices.size());
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <tools.h>
 #include "entity.h"
 #include "camera.h"
 #include "light.h"

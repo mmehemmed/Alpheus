@@ -7,7 +7,8 @@ cmake_policy(SET CMP0072 NEW)
 add_executable(Alpheus 
     src/main.cpp 
     "src/renderer/window.cpp"
-    
+    "src/terrain/terrain.cpp" "include/terrain.h"
+    "src/renderer/terrain_renderer.cpp" "include/terrain_renderer.h"
     "src/renderer/loader.cpp"
     src/glad.c
  "src/renderer/shader.cpp" "include/shader.h" "include/texture.h" "src/texture.cpp" "src/tools/stb_image.cpp" "src/entites/camera.cpp"  "include/camera.h" "include/entity.h"     "include/light.h" "include/input.h" "src/tools/input.cpp"  "include/tools.h" "src/tools/tools.cpp" "include/master_renderer.h" "src/renderer/master_renderer.cpp")

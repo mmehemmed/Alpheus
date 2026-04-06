@@ -16,6 +16,7 @@ void InputManager::checkControls(Window& window){
 	keys[DOWN] = glfwGetKey(window.window, DOWN) == GLFW_PRESS;
 	keys[LEFT] = glfwGetKey(window.window, LEFT) == GLFW_PRESS;
 	keys[RIGHT] = glfwGetKey(window.window, RIGHT) == GLFW_PRESS;
+	keys[LSHIFT] = glfwGetKey(window.window, LSHIFT) == GLFW_PRESS;
 
 	glfwGetCursorPos(window.window, &xPos, &yPos);
 }

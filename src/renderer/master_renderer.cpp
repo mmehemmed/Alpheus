@@ -1,5 +1,4 @@
 #include "master_renderer.h"
-#include <tools.h>
 
 MasterRenderer::MasterRenderer() : shader("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\shaders\\vertex.glsl", "C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\shaders\\fragment.glsl") {
 	// Initialize the shader and renderer
@@ -12,7 +11,6 @@ void MasterRenderer::addEntity(const Entity& entity) {
 	entities[model].push_back(entity);
 }
 void MasterRenderer::render(const Camera& camera, const Light& light, bool debugRenderMode) {
-	prepare();
 	shader.use();
 
 	// 1. GLOBAL UNIFORMS (Set these once per frame, NOT in the loop)

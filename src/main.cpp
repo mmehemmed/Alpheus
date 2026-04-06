@@ -3,10 +3,11 @@
 #include "loader.h"
 #include "input.h"
 #include "master_renderer.h"
-#include <tools.h>
+#include "terrain.h"
+#include "terrain_renderer.h"
 
 int main() {
-
+	std::cout << "Starting Alpheus Engine..." << std::endl;
 	//LOADING ENGINE TEST
 	Window window(1600, 900, "Alpheus Window");
 
@@ -20,13 +21,19 @@ int main() {
 	InputManager inputManager;
 
 
-
 	//MODEL LOADING TEST
 	Texture texture("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\textures\\gold.png");
+	Texture greenT("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\textures\\green.png");
+
 	RawModel model = loader.loadOBJ("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\models\\cube.obj");
 	TexturedModel texturedModel(model, texture);
 	texturedModel.setShininess(1.0f); // Set a higher specular strength for a shinier surface
 	texturedModel.setGlossiness(64.0f); // Set a higher glossiness for sharper specular highlights
+
+
+	TerrainRenderer terrainRenderer(greenT);
+	Terrain terrain(0, 0, loader);
+
 
 
 	std::vector<Entity> entities;
@@ -45,10 +52,14 @@ int main() {
         camera.move(window.getDeltaTime(),inputManager);
 		camera.rotate(window.getDeltaTime(), inputManager);
 
+		renderer.prepare();
 		for (Entity& entity : entities) {
 			entity.rotate(glm::vec3(0.0f, 20.0f * window.getDeltaTime(), 0.0f)); // Rotate around the Y-axis
 			renderer.addEntity(entity);
 		}
+		terrainRenderer.addTerrain(terrain);
+
+		terrainRenderer.render(light, camera, inputManager.getKeyState(F));
 
 		renderer.render(camera, light, inputManager.getKeyState(F));
 
