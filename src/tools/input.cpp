@@ -1,6 +1,8 @@
 #include "input.h"
 
 std::vector<bool> InputManager::keys = std::vector<bool>(1024, false); // Initialize the keys vector with 1024 entries set to false
+double InputManager::xPos = 0.0;
+double InputManager::yPos = 0.0;
 
 void InputManager::checkControls(Window& window){
 	keys[W] = glfwGetKey(window.window, W) == GLFW_PRESS;
@@ -14,6 +16,11 @@ void InputManager::checkControls(Window& window){
 	keys[DOWN] = glfwGetKey(window.window, DOWN) == GLFW_PRESS;
 	keys[LEFT] = glfwGetKey(window.window, LEFT) == GLFW_PRESS;
 	keys[RIGHT] = glfwGetKey(window.window, RIGHT) == GLFW_PRESS;
+
+	glfwGetCursorPos(window.window, &xPos, &yPos);
+}
+glm::vec2 InputManager::getMousePos() {
+	return glm::vec2(static_cast<float>(xPos), static_cast<float>(yPos));
 }
 bool InputManager::getKeyState(int key){
 	return keys[key];

@@ -8,7 +8,7 @@
 int main() {
 
 	//LOADING ENGINE TEST
-	Window window(800, 450, "Alpheus Window");
+	Window window(1600, 900, "Alpheus Window");
 
 	//CREATION TEST	
 	window.create();
@@ -55,7 +55,6 @@ int main() {
 		window.updateFPSCounter();
 		window.swapBuffers();
 		window.pollEvents();
-		std::cout << "Hello Debug: " << window.getTime() << std::endl;
 	}
 	loader.cleanUp();
 	renderer.cleanUp();

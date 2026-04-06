@@ -2,14 +2,17 @@
 
 #include "window.h"
 #include <vector>
+#include <glm/glm.hpp>
 
 class InputManager {
 
 public:
 	static void checkControls(Window& window);
 	static bool getKeyState(int key);
+	static glm::vec2 getMousePos();
 private:
 	static std::vector<bool> keys;
+	static double xPos, yPos; // Store mouse position
 };
 
 enum Key {

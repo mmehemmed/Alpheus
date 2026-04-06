@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glfw3.h>
 
-void Camera::move(float deltaTime, InputManager inputManager) {
+void Camera::move(float deltaTime, InputManager& inputManager) {
 	// Move forward/backward
 	if (inputManager.getKeyState(W)) { // W key
 		position += forward * speed * deltaTime;
@@ -26,21 +26,21 @@ void Camera::move(float deltaTime, InputManager inputManager) {
 	}
 }
 
-void Camera::rotate(float deltaTime, InputManager inputManager) {
-	// Rotate up/down
-	if (inputManager.getKeyState(UP)) { // Up arrow key
-		pitch += speed * deltaTime * rotationSpeed; // Adjust rotation speed as needed
-	}
-	if (inputManager.getKeyState(DOWN)) { // Down arrow key
-		pitch -= speed * deltaTime * rotationSpeed;
-	}
-	// Rotate left/right
-	if (inputManager.getKeyState(LEFT)) { // Left arrow key
-		yaw -= speed * deltaTime * rotationSpeed;
-	}
-	if (inputManager.getKeyState(RIGHT)) { // Right arrow key
-		yaw += speed * deltaTime * rotationSpeed;
-	}
+void Camera::rotate(float deltaTime, InputManager& inputManager) {
+	glm::vec2 mousePos = inputManager.getMousePos();
+
+	float mouseXOffset = mousePos.x - lastMouseX;
+	float mouseYOffset = lastMouseY - mousePos.y; // Invert Y-axis for typical camera controls
+
+	lastMouseX = mousePos.x;
+	lastMouseY = mousePos.y;
+
+	mouseXOffset *= mouseSensitivity;
+	mouseYOffset *= mouseSensitivity;
+
+	yaw += mouseXOffset * deltaTime;
+	pitch += mouseYOffset * deltaTime;
+	
 	// Constrain the pitch so the screen doesn't flip upside down
 	if (pitch > 89.0f)  pitch = 89.0f;
 	if (pitch < -89.0f) pitch = -89.0f;

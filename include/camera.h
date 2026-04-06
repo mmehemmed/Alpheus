@@ -5,15 +5,14 @@
 
 class Camera {
 public:
-	void move(float deltaTime, InputManager inputManager);
-	void rotate(float deltaTime, InputManager inputManager);
+	void move(float deltaTime, InputManager& inputManager);
+	void rotate(float deltaTime, InputManager& inputManager);
 	glm::mat4 getViewMatrix() const; // View matrix for the camera
 	glm::mat4 getProjectionMatrix() const; // Projection matrix for the camera
 	glm::vec3 getPosition() const { return position; } // Get the current position of the camera
 
 private:
 	float speed = 3.0f; // Movement speed
-	float rotationSpeed = 6.0f; // Rotation speed (degrees per second)	
 	glm::vec3 position = glm::vec3(0.0f, 0.0f, 3.0f); // Initial position
 	float pitch = 0.0f; // Rotation around the X-axis
 	float yaw = -90.0f; // Rotation around the Y-axis (initialized to look towards negative Z)
@@ -28,4 +27,8 @@ private:
 	const float fov = 90.0f; // Field of view in degrees
 	const float aspectRatio = 16.0f / 9.0f; // Aspect ratio (width/height)
 	void recalculateDirectionVectors(); // Recalculate forward, right, and up vectors based on current pitch and yaw
+
+	float lastMouseX = 800.0f; // Initial mouse X position (center of the screen)
+	float lastMouseY = 450.0f; // Initial mouse Y position (center of the screen)
+	float mouseSensitivity = 1.2f; // Mouse sensitivity for rotation
 };

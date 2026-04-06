@@ -37,6 +37,7 @@ void Window::create(){
 	glfwSetWindowAspectRatio(window, 16,9);
 	//glfwSetKeyCallback(window, key_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Window::destroy() {
