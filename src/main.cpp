@@ -1,9 +1,9 @@
 #include "window.h"
 #include <iostream>
 #include "loader.h"
-#include "renderer.h"
-#include "shader.h"
 #include "input.h"
+#include "master_renderer.h"
+#include <tools.h>
 
 int main() {
 
@@ -14,8 +14,7 @@ int main() {
 	window.create();
 
 	Loader loader;
-	Renderer renderer;
-	Shader shader("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\shaders\\vertex.glsl", "C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\shaders\\fragment.glsl");
+	MasterRenderer renderer;
 	Light light(glm::vec3(0.0f, 3.0f, 5.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	Camera camera;
 	InputManager inputManager;
@@ -23,18 +22,19 @@ int main() {
 
 
 	//MODEL LOADING TEST
-    std::vector<float> vertices;
-    std::vector<float> texCoords;
-    std::vector<unsigned int> indices;
 	Texture texture("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\textures\\gold.png");
-	RawModel model = loader.loadOBJ("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\models\\dragon.obj");
+	RawModel model = loader.loadOBJ("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\models\\cube.obj");
 	TexturedModel texturedModel(model, texture);
-	texturedModel.setShininess(1.4f); // Set a higher specular strength for a shinier surface
-	texturedModel.setGlossiness(256.0f); // Set a higher glossiness for sharper specular highlights
-	Entity modelEntity(texturedModel);
-	modelEntity.scale = 1.0f; // Scale down the model for better visibility
+	texturedModel.setShininess(1.0f); // Set a higher specular strength for a shinier surface
+	texturedModel.setGlossiness(64.0f); // Set a higher glossiness for sharper specular highlights
 
 
+	std::vector<Entity> entities;
+
+	for (size_t i = 0; i < 100; i++)
+	{
+		entities.push_back(Entity(&texturedModel, generateRandomVec3(glm::vec3(-10.0f), glm::vec3(10.0f)), generateRandomVec3(glm::vec3(0.0f), glm::vec3(360.0f)), 1.0f));
+	}
 
 
 
@@ -45,8 +45,12 @@ int main() {
         camera.move(window.getDeltaTime(),inputManager);
 		camera.rotate(window.getDeltaTime(), inputManager);
 
-		renderer.prepare();
-		renderer.render(camera,light,modelEntity,shader,inputManager.getKeyState(F));
+		for (Entity& entity : entities) {
+			entity.rotate(glm::vec3(0.0f, 20.0f * window.getDeltaTime(), 0.0f)); // Rotate around the Y-axis
+			renderer.addEntity(entity);
+		}
+
+		renderer.render(camera, light, inputManager.getKeyState(F));
 
 		window.updateFPSCounter();
 		window.swapBuffers();
@@ -54,6 +58,6 @@ int main() {
 		std::cout << "Hello Debug: " << window.getTime() << std::endl;
 	}
 	loader.cleanUp();
-	shader.deleteShader();
+	renderer.cleanUp();
 	window.destroy();
 }

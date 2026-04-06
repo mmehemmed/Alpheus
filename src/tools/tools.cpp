@@ -9,3 +9,9 @@ glm::mat4 createTransformationMatrix(const glm::vec3& translation, const glm::ve
 	matrix = glm::scale(matrix, glm::vec3(scale)); // Apply scaling
 	return matrix;
 }
+glm::vec3 generateRandomVec3(glm::vec3& start, glm::vec3& end) {
+	float x = start.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (end.x - start.x)));
+	float y = start.y + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (end.y - start.y)));
+	float z = start.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (end.z - start.z)));
+	return glm::vec3(x, y, z);
+}

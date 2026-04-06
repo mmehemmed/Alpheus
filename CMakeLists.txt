@@ -7,10 +7,10 @@ cmake_policy(SET CMP0072 NEW)
 add_executable(Alpheus 
     src/main.cpp 
     "src/renderer/window.cpp"
-    "src/renderer/renderer.cpp"
+    
     "src/renderer/loader.cpp"
     src/glad.c
- "src/renderer/shader.cpp" "include/shader.h" "include/texture.h" "src/texture.cpp" "src/tools/stb_image.cpp" "src/entites/camera.cpp"  "include/camera.h" "include/entity.h"     "include/light.h" "include/input.h" "src/tools/input.cpp"  "include/tools.h" "src/tools/tools.cpp")
+ "src/renderer/shader.cpp" "include/shader.h" "include/texture.h" "src/texture.cpp" "src/tools/stb_image.cpp" "src/entites/camera.cpp"  "include/camera.h" "include/entity.h"     "include/light.h" "include/input.h" "src/tools/input.cpp"  "include/tools.h" "src/tools/tools.cpp" "include/master_renderer.h" "src/renderer/master_renderer.cpp")
 
 # Include directories (modern way)
 target_include_directories(Alpheus PRIVATE include)
