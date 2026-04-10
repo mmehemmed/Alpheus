@@ -32,7 +32,7 @@ void Window::create(){
 		std::cerr << "Failed to initialize GLAD" << std::endl;
 		exit(-1);
 	}
-	glfwSwapInterval(1); // V-Sync
+	//glfwSwapInterval(1); // V-Sync
 	glEnable(GL_DEPTH_TEST);
 	glfwSetWindowAspectRatio(window, 16,9);
 	//glfwSetKeyCallback(window, key_callback);

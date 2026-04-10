@@ -25,14 +25,14 @@ void Camera::move(float deltaTime, InputManager& inputManager) {
 		position -= worldUp * speed * deltaTime; // Move down
 	}
 	if (inputManager.getKeyState(LSHIFT)) { // Left Shift key for faster movement
-		speed =  15.0f; // Move forward faster
+		speed =  sprintSpeed; // Move forward faster
 	}
 	else {
-		speed = 3.0f; // Reset to normal speed when Left Shift is not pressed
+		speed = 5.0f; // Reset to normal speed when Left Shift is not pressed
 	}
 }
 
-void Camera::rotate(float deltaTime, InputManager& inputManager) {
+void Camera::rotate(InputManager& inputManager) {
 	glm::vec2 mousePos = inputManager.getMousePos();
 
 	float mouseXOffset = mousePos.x - lastMouseX;
@@ -44,8 +44,8 @@ void Camera::rotate(float deltaTime, InputManager& inputManager) {
 	mouseXOffset *= mouseSensitivity;
 	mouseYOffset *= mouseSensitivity;
 
-	yaw += mouseXOffset * deltaTime;
-	pitch += mouseYOffset * deltaTime;
+	yaw += mouseXOffset;
+	pitch += mouseYOffset;
 	
 	// Constrain the pitch so the screen doesn't flip upside down
 	if (pitch > 89.0f)  pitch = 89.0f;

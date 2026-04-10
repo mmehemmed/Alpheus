@@ -15,3 +15,6 @@ glm::vec3 generateRandomVec3(glm::vec3& start, glm::vec3& end) {
 	float z = start.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (end.z - start.z)));
 	return glm::vec3(x, y, z);
 }
+float generateRandomFloat(float start, float end) {
+	return start + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (end - start)));
+}

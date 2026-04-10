@@ -3,8 +3,8 @@
 #include "loader.h"
 #include "input.h"
 #include "master_renderer.h"
+#include "noise.h"
 #include "terrain.h"
-#include "terrain_renderer.h"
 
 int main() {
 	std::cout << "Starting Alpheus Engine..." << std::endl;
@@ -16,32 +16,40 @@ int main() {
 
 	Loader loader;
 	MasterRenderer renderer;
-	Light light(glm::vec3(0.0f, 3.0f, 5.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	Light light(glm::vec3(64.0f, 32.0f, 64.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	Camera camera;
 	InputManager inputManager;
 
 
 	//MODEL LOADING TEST
-	Texture texture("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\textures\\gold.png");
-	Texture greenT("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\textures\\green.png");
+	Texture texture("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\textures\\tree.png");
+	Texture greenT("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\textures\\tex.png");
 
-	RawModel model = loader.loadOBJ("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\models\\cube.obj");
+	RawModel model = loader.loadOBJ("C:\\Users\\mmehe\\source\\repos\\Alpheus\\res\\models\\tree.obj");
 	TexturedModel texturedModel(model, texture);
 	texturedModel.setShininess(1.0f); // Set a higher specular strength for a shinier surface
 	texturedModel.setGlossiness(64.0f); // Set a higher glossiness for sharper specular highlights
 
+	PerlinNoise noise = PerlinNoise(563625); // You can choose any seed value for different terrain variations
 
-	TerrainRenderer terrainRenderer(greenT);
-	Terrain terrain(0, 0, loader);
 
+	Terrain terrain1(0, 0, 16, loader,noise);
+	//Terrain terrain2(0, 1,40, loader, noise);
+	//Terrain terrain3(1, 0,40, loader, noise);
+	//Terrain terrain4(1, 1,40, loader, noise);
 
 
 	std::vector<Entity> entities;
 
-	for (size_t i = 0; i < 100; i++)
+	for (size_t i = 0; i < 30; i++)
 	{
-		entities.push_back(Entity(&texturedModel, generateRandomVec3(glm::vec3(-10.0f), glm::vec3(10.0f)), generateRandomVec3(glm::vec3(0.0f), glm::vec3(360.0f)), 1.0f));
+		float x = generateRandomFloat(terrain1.getX(), terrain1.getX() + 128);
+		float z = generateRandomFloat(terrain1.getZ(), terrain1.getZ() + 128);
+		float y = terrain1.getHeightOfTerrain(x, z, noise);
+		entities.push_back(Entity(&texturedModel, glm::vec3(x, y, z), glm::vec3(0.0f), 3.0f));
 	}
+
+	entities.push_back(Entity(&texturedModel, light.getPosition(),glm::vec3(0.0f), 4.0f));
 
 
 
@@ -50,16 +58,19 @@ int main() {
 		inputManager.checkControls(window);
 
         camera.move(window.getDeltaTime(),inputManager);
-		camera.rotate(window.getDeltaTime(), inputManager);
+		camera.rotate(inputManager);
 
 		renderer.prepare();
 		for (Entity& entity : entities) {
-			entity.rotate(glm::vec3(0.0f, 20.0f * window.getDeltaTime(), 0.0f)); // Rotate around the Y-axis
+			//entity.rotate(glm::vec3(0.0f, 20.0f * window.getDeltaTime(), 0.0f)); // Rotate around the Y-axis
 			renderer.addEntity(entity);
 		}
-		terrainRenderer.addTerrain(terrain);
+		renderer.addTerrain(terrain1);
+		//terrainRenderer.addTerrain(terrain2);
+		//terrainRenderer.addTerrain(terrain3);
+		//terrainRenderer.addTerrain(terrain4);
 
-		terrainRenderer.render(light, camera, inputManager.getKeyState(F));
+
 
 		renderer.render(camera, light, inputManager.getKeyState(F));
 
